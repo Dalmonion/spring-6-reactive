@@ -2,6 +2,8 @@ package com.example.spring6reactive.repository;
 
 import com.example.spring6reactive.config.DatabaseConfig;
 import com.example.spring6reactive.domain.Beer;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,13 @@ class BeerRepositoryTest {
 
     @Autowired
     BeerRepository beerRepository;
+
+    @Test
+    void testCreateJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        System.out.println(objectMapper.writeValueAsString(getTestBeer()));
+    }
 
     @Test
     void saveNewBeer() {
