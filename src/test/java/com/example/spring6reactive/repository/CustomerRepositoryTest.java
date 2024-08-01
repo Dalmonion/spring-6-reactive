@@ -1,7 +1,7 @@
 package com.example.spring6reactive.repository;
 
 import com.example.spring6reactive.config.DatabaseConfig;
-import com.example.spring6reactive.domain.Beer;
+import com.example.spring6reactive.domain.Customer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,35 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 import org.springframework.context.annotation.Import;
 
-import java.math.BigDecimal;
-
 @DataR2dbcTest
 @Import(DatabaseConfig.class)
-public class BeerRepositoryTest {
+public class CustomerRepositoryTest {
 
     @Autowired
-    BeerRepository beerRepository;
+    CustomerRepository customerRepository;
 
     @Test
     void testCreateJson() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        System.out.println(objectMapper.writeValueAsString(getTestBeer()));
+        System.out.println(objectMapper.writeValueAsString(getTestCustomer()));
     }
 
     @Test
-    void saveNewBeer() {
-        beerRepository.save(getTestBeer())
-                .subscribe(beer -> System.out.println(beer.toString()));
+    void testSaveNewCustomer() {
+        customerRepository.save(getTestCustomer())
+                .subscribe(customer -> System.out.println(customer.toString()));
     }
 
-    public static Beer getTestBeer() {
-        return Beer.builder()
-                .beerName("SPace Dust")
-                .beerStyle("IPA")
-                .price(BigDecimal.TEN)
-                .quantityOnHand(12)
-                .upc("123213")
+    public static Customer getTestCustomer() {
+        return Customer.builder()
+                .customerName("Customer name")
                 .build();
     }
 }
